@@ -1,1 +1,1 @@
-alert('Hello, this is just a ');
+import '../styles/styles.css';
