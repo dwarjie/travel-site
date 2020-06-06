@@ -4,10 +4,25 @@ import RevealOnScroll from './modules/RevealOnScroll';
 import StickyHeader from './modules/StickyHeader';
 
 // reference classes
-let mobileMenu = new MobileMenu();
-let stickyHeeader = new StickyHeader();
+new MobileMenu();
+new StickyHeader();
 new RevealOnScroll(document.querySelectorAll('.feature-item'), 75);
 new RevealOnScroll(document.querySelectorAll('.testimonial'), 60);
+let modal;
+
+document.querySelectorAll('.open-modal').forEach(el => {
+	el.addEventListener('click',e => {
+		e.preventDefault();
+		if (typeof modal == 'undefined') {
+			import(/* webpackChunkName: "modal" */'./modules/Modal').then(x => {
+				modal = new x.default();
+				setTimeout(() => modal.openTheModal(), 20);
+			}).catch(() => console.log('Error'));
+		}else {
+			modal.openTheModal();
+		}
+	});
+});
 
 if (module.hot) {
 	module.hot.accept();
